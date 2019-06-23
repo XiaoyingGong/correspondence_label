@@ -12,7 +12,7 @@ img2_path = "./img/2.png"
 img1 = cv2.imread(img1_path)
 img2 = cv2.imread(img2_path)
 h_img = np.hstack((img1, img2))
-#sift的阈值
+#sift的阈值, 推荐设置高一点以增加负样
 sift_threshold = 0.8
 
 # 通过sift进行预匹配
