@@ -1,5 +1,5 @@
 # correspondence_label
-It's a tool to label the feature points' correspondences are correct or false.
+It's a tool to label the feature points' correspondences are true or false.
 
 # 输入，输出
 - input:大小相同的两幅图像的路径，以及预匹配后的点集
