@@ -13,12 +13,13 @@ img1 = cv2.imread(img1_path)
 img2 = cv2.imread(img2_path)
 h_img = np.hstack((img1, img2))
 #sift的阈值, 推荐设置高一点以增加负样
-sift_threshold = 0.8
+sift_threshold = 0.6
 
 # 通过sift进行预匹配
 pre_matches1, pre_matches2, kp1, kp2, good_match = sift_matching.get_matches(img1_path, img2_path, sift_threshold)
-index1 = good_match[0].queryIdx
-index2 = good_match[0].trainIdx
+
+# 以下为测试0：去掉重复的match
+print(len(pre_matches1[0]))
 
 # 以下为测试1：从头开始的标注
 pre_matches1 = pre_matches1[:, :10]#只取前10个，方便测试

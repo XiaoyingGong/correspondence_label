@@ -10,10 +10,24 @@ def get_matches(img1_path, img2_path, sift_threshold):
     img2 = cv2.imread(img2_path)
     _, kp1, des1 = sift_kp(img1)
     _, kp2, des2 = sift_kp(img2)
+    index1 = repeat_removal(kp1)
+    index2 = repeat_removal(kp2)
+    kp1 = np.array(kp1)[index1]
+    kp2 = np.array(kp2)[index2]
+    des1 = np.array(des1)[index1]
+    des2 = np.array(des2)[index2]
     good_match = get_good_match(des1, des2, sift_threshold)
     matching_points_1, matching_points_2 = get_matching_points(kp1, kp2, good_match)
     return matching_points_1, matching_points_2, kp1, kp2, good_match
 
+
+# 去重返回值为不重复的值的下标
+def repeat_removal(kp):
+    temp = np.zeros([len(kp), 2])
+    for i in range(len(kp)):
+        temp[i] = kp[i].pt
+    _, index = np.unique(temp, return_index=True, axis=0)
+    return index
 
 # 得到在预匹配过后筛选的点,matching_points是一个2乘以n的二维矩阵，第一行为x坐标，第二行为y坐标
 def get_matching_points(kp1, kp2, good_match):
@@ -47,3 +61,5 @@ def get_good_match(des1, des2, sift_threshold):
         if m.distance < sift_threshold * n.distance:
             good.append(m)
     return good
+
+
