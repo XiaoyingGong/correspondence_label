@@ -122,7 +122,6 @@ class Label:
         filename = self.img_path1.split("/")[len(self.img_path1.split("/")) - 1] + "_" \
             + self.img_path2.split("/")[len(self.img_path2.split("/")) - 1]
         np.savez('./label_result/'+filename, correspondence_label=result, index=self.index)
-        print(result)
         plt.close()
 
     # 对is_right_match的操作
