@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 from feature_matching import sift_matching
-from label.label import  Label
+from label.label import Label
 # 主类，汇总各个类的功能
 
 # 图像路径
@@ -13,17 +13,16 @@ img1 = cv2.imread(img1_path)
 img2 = cv2.imread(img2_path)
 h_img = np.hstack((img1, img2))
 #sift的阈值, 推荐设置高一点以增加负样
-sift_threshold = 0.8
+sift_threshold = 0.6
 
 # 通过sift进行预匹配
-pre_matches1, pre_matches2, kp1, kp2, good_match = sift_matching.get_matches(img1_path, img2_path, sift_threshold)
+pre_matches1, pre_matches2, des1, des2, good_match = sift_matching.get_matches(img1_path, img2_path, sift_threshold)
 
-# 以下为测试0：去掉重复的match
-print(len(pre_matches1[0]))
-
+pre_matches1 = np.transpose(pre_matches1)
+pre_matches2 = np.transpose(pre_matches2)
 # 以下为测试1：从头开始的标注
-pre_matches1 = pre_matches1[:, :10]#只取前10个，方便测试
-pre_matches2 = pre_matches2[:, :10]
+# pre_matches1 = pre_matches1[:, :10]#只取前10个，方便测试
+# pre_matches2 = pre_matches2[:, :10]
 label = Label(img1_path, img2_path, pre_matches1, pre_matches2)
 label.start_label()
 
