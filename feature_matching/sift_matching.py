@@ -5,9 +5,7 @@ import numpy as np
 '''
 
 
-def get_matches(img1_path, img2_path, sift_threshold):
-    img1 = cv2.imread(img1_path)
-    img2 = cv2.imread(img2_path)
+def get_matches(img1, img2, sift_threshold):
     kp1, des1 = sift_kp(img1)
     kp2, des2 = sift_kp(img2)
     print(len(kp1))

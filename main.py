@@ -16,7 +16,7 @@ h_img = np.hstack((img1, img2))
 sift_threshold = 0.6
 
 # 通过sift进行预匹配
-pre_matches1, pre_matches2, des1, des2, good_match = sift_matching.get_matches(img1_path, img2_path, sift_threshold)
+pre_matches1, pre_matches2, des1, des2, good_match = sift_matching.get_matches(img1, img2, sift_threshold)
 
 pre_matches1 = np.transpose(pre_matches1)
 pre_matches2 = np.transpose(pre_matches2)
