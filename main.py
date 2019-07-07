@@ -18,6 +18,12 @@ sift_threshold = 0.6
 # 通过sift进行预匹配
 pre_matches1, pre_matches2, des1, des2, good_match = sift_matching.get_matches(img1, img2, sift_threshold)
 
+# 因为匹配里面也有可能存在一对多的情况所以，这里进行一次将一对多的情况剔除
+pre_matches1, index1 = np.unique(pre_matches1, return_index=True, axis=0)
+pre_matches2 = pre_matches2[index1]
+pre_matches2, index2 = np.unique(pre_matches2, return_index=True, axis=0)
+pre_matches1 = pre_matches1[index2]
+
 pre_matches1 = np.transpose(pre_matches1)
 pre_matches2 = np.transpose(pre_matches2)
 # 以下为测试1：从头开始的标注
