@@ -8,14 +8,12 @@ import numpy as np
 def get_matches(img1, img2, sift_threshold):
     kp1, des1 = sift_kp(img1)
     kp2, des2 = sift_kp(img2)
-    print(len(kp1))
     index1 = repeat_removal(kp1)
     index2 = repeat_removal(kp2)
     kp1 = np.array(kp1)[index1]
     kp2 = np.array(kp2)[index2]
     des1 = np.array(des1)[index1]
     des2 = np.array(des2)[index2]
-    print(len(kp1))
     good_match = get_good_match(des1, des2, sift_threshold)
     matching_points_1, matching_points_2, des_1, des_2, match_index = get_matching_points(kp1, kp2, des1, des2, good_match)
     return matching_points_1, matching_points_2, des_1, des_2, match_index
