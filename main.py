@@ -13,7 +13,7 @@ img1 = cv2.imread(img1_path)
 img2 = cv2.imread(img2_path)
 h_img = np.hstack((img1, img2))
 #sift的阈值, 推荐设置高一点以增加负样
-sift_threshold = 0.6
+sift_threshold = 1.0
 
 # 通过sift进行预匹配
 pre_matches1, pre_matches2, des1, des2, good_match = sift_matching.get_matches(img1, img2, sift_threshold)
@@ -23,6 +23,7 @@ pre_matches1, index1 = np.unique(pre_matches1, return_index=True, axis=0)
 pre_matches2 = pre_matches2[index1]
 pre_matches2, index2 = np.unique(pre_matches2, return_index=True, axis=0)
 pre_matches1 = pre_matches1[index2]
+
 
 pre_matches1 = np.transpose(pre_matches1)
 pre_matches2 = np.transpose(pre_matches2)
