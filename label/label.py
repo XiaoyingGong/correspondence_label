@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2
+from utils import constants
 '''
 input:大小相同的两幅图像的路径，以及预匹配后的点集
 output:人工标注的点集,其为5行，n列的矩阵,其中
@@ -120,7 +121,7 @@ class Label:
         result = np.vstack((self.pre_matches1, self.pre_matches2, self.is_right_match))
         #存储结果，并保存遍历到的图像的图像特征点的序号，便于中间暂停后下次操作
         filename = self.img_path1.split("/")[len(self.img_path1.split("/")) - 1] + "_" \
-            + self.img_path2.split("/")[len(self.img_path2.split("/")) - 1]
+            + self.img_path2.split("/")[len(self.img_path2.split("/")) - 1] + "_" + str(constants.SIFT_THRESHOLD)
         np.savez('./label_result/'+filename, correspondence_label=result, index=self.index)
         plt.close()
 

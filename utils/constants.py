@@ -1,0 +1,2 @@
+
+SIFT_THRESHOLD = 0.9
