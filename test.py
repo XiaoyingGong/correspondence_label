@@ -1,4 +1,4 @@
 import numpy as np
-a = np.array([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5]])
-b = a[[1, 2]]
-print(b)
+a = 75
+b = 75 / 2
+print(int(3.1))
