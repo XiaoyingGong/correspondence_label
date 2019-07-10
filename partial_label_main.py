@@ -46,11 +46,11 @@ pre_matches1_partial = np.transpose(pre_matches1_partial)
 pre_matches2_partial = np.transpose(pre_matches2_partial)
 
 # 以下为测试1：从头开始的标注
-label = Label(img1, img2, pre_matches1_partial, pre_matches2_partial)
+label = Label(img_1_path, img_2_path, img1, img2, pre_matches1_partial, pre_matches2_partial)
 label.start_label()
 
 # 以下为测试2 读取保存的文件来进行标注
-# label = Label(img1, img2, pre_matches1_partial, pre_matches2_partial, './label_result/3_r.png_3_s.png_0.9.npz')
+# label = Label(img_1_path, img_2_path, img1, img2, pre_matches1_partial, pre_matches2_partial, './label_result/4_r.png_4_s.png_1.0.npz')
 # label.start_label()
 
 

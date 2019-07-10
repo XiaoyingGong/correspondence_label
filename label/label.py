@@ -26,9 +26,11 @@ b:返回上一 步
 
 
 class Label:
-    def __init__(self, img1, img2, pre_matches1, pre_matches2, load_path=None):
+    def __init__(self, img_path1, img_path2, img1, img2, pre_matches1, pre_matches2, load_path=None):
         self.img1 = img1[:, :, [2, 1, 0]]
         self.img2 = img2[:, :, [2, 1, 0]]
+        self.img_path1 = img_path1
+        self.img_path2 = img_path2
         self.img_width = self.img1.shape[1]
         self.h_img = np.hstack((self.img1, self.img2))
         self.pre_matches1 = pre_matches1
