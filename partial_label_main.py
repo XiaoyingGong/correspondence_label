@@ -19,8 +19,8 @@ def get_partial_points(pre_matches):
     return pre_matches[index], index
 
 
-img_1_path = "./img/4_r.png"
-img_2_path = "./img/4_s.png"
+img_1_path = "./img/1_r.png"
+img_2_path = "./img/1_s.png"
 
 img_1 = cv2.imread(img_1_path)
 img_2 = cv2.imread(img_2_path)
@@ -46,12 +46,12 @@ pre_matches1_partial = np.transpose(pre_matches1_partial)
 pre_matches2_partial = np.transpose(pre_matches2_partial)
 
 # 以下为测试1：从头开始的标注
-label = Label(img_1_path, img_2_path, img1, img2, pre_matches1_partial, pre_matches2_partial)
-label.start_label()
+# label = Label(img_1_path, img_2_path, img1, img2, pre_matches1_partial, pre_matches2_partial)
+# label.start_label()
 
 # 以下为测试2 读取保存的文件来进行标注
-# label = Label(img_1_path, img_2_path, img1, img2, pre_matches1_partial, pre_matches2_partial, './label_result/4_r.png_4_s.png_1.0.npz')
-# label.start_label()
+label = Label(img_1_path, img_2_path, img1, img2, pre_matches1_partial, pre_matches2_partial, './label_result/1_r.png_1_s.png_1.0.npz')
+label.start_label()
 
 
 

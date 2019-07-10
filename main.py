@@ -34,12 +34,12 @@ pre_matches1 = pre_matches1[index2]
 pre_matches1 = np.transpose(pre_matches1)
 pre_matches2 = np.transpose(pre_matches2)
 # 以下为测试1：从头开始的标注
-label = Label(img1, img2, pre_matches1, pre_matches2)
-label.start_label()
+# label = Label(img1, img2, pre_matches1, pre_matches2)
+# label.start_label()
 
 # 以下为测试2 读取保存的文件来进行标注
-# label = Label(img1, img2, pre_matches1, pre_matches2, './label_result/3_r.png_3_s.png_0.9.npz')
-# label.start_label()
+label = Label(img1, img2, pre_matches1, pre_matches2, './label_result/1_r.png_1_s.png_1.0.npz')
+label.start_label()
 
 
 
