@@ -18,11 +18,13 @@ img1 = cv2.resize(img1, (800, 600))
 img2 = cv2.resize(img2, (800, 600))
 h_img = np.hstack((img1, img2))
 #sift的阈值, 推荐设置高一点以增加负样
-sift_threshold = constants.SIFT_THRESHOLD
+sift_threshold = 1.0
 
 # 通过sift进行预匹配
 pre_matches1, pre_matches2, des1, des2, good_match = sift_matching.get_matches(img1, img2, sift_threshold)
 len_1 = len(pre_matches1)
+
+print(len(pre_matches1))
 
 # 因为匹配里面也有可能存在一对多的情况所以，这里进行一次将一对多的情况剔除
 pre_matches1, index1 = np.unique(pre_matches1, return_index=True, axis=0)
@@ -30,16 +32,16 @@ pre_matches2 = pre_matches2[index1]
 pre_matches2, index2 = np.unique(pre_matches2, return_index=True, axis=0)
 pre_matches1 = pre_matches1[index2]
 
-
 pre_matches1 = np.transpose(pre_matches1)
 pre_matches2 = np.transpose(pre_matches2)
+
 # 以下为测试1：从头开始的标注
-# label = Label(img1, img2, pre_matches1, pre_matches2)
-# label.start_label()
+label = Label(img1_path, img2_path, img1, img2, pre_matches1, pre_matches2)
+label.start_label()
 
 # 以下为测试2 读取保存的文件来进行标注
-label = Label(img1, img2, pre_matches1, pre_matches2, './label_result/1_r.png_1_s.png_1.0.npz')
-label.start_label()
+# label = Label(img1, img2, pre_matches1, pre_matches2, './label_result/1_r.png_1_s.png_1.0.npz')
+# label.start_label()
 
 
 

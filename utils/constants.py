@@ -1,2 +1,5 @@
-
+# SIFT阈值
 SIFT_THRESHOLD = 1.0
+
+# 图像的缩放率
+IMG_RESIZE_RATIO = 2
