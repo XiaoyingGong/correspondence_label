@@ -1,5 +1,5 @@
 import numpy as np
 
-c = np.load("./label_result/1_r.png_1_s.png_1.0.npz")
+c = np.load("./label_result/15_r.jpg_15_s.jpg.npz")
 a = c["correspondence_label"]
-print(a[4])
+print(a[:, :10])

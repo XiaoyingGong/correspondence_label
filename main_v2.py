@@ -17,20 +17,20 @@ from utils.utils import utils
 # 取点的策略 每份10个 取30份 每张图300个点
 
 # 图像路径
-img_path_r = "./img/train_image_set/4_r.png"
-img_path_s = "./img/train_image_set/4_s.png"
+img_path_r = "./img/train_image_set/1_r.png"
+img_path_s = "./img/train_image_set/1_s.png"
 
 # 以下提出的点集都是sensed points 1对多 reference points
 constants.IMG_RESIZE_RATIO = 1.5
 
 # strict threshold
-constants.SIFT_THRESHOLD = 0.3
+constants.SIFT_THRESHOLD = 0.4
 pre_matches_s_strict, pre_matches_r_strict, des_s_strict, des_r_strict, img_s, img_r, resize_h, resize_w =\
     pre_matching.get_pre_matches(img_path_s, img_path_r, False)
 print(len(pre_matches_s_strict))
 
 # loose threshold
-constants.SIFT_THRESHOLD = 0.4
+constants.SIFT_THRESHOLD = 0.8
 pre_matches_s_loose, pre_matches_r_loose, des_s_loose, des_r_loose, img_s, img_r, resize_h, resize_w =\
     pre_matching.get_pre_matches(img_path_s, img_path_r, False)
 

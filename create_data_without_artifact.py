@@ -18,8 +18,8 @@ from utils import constants
 from utils.utils import utils
 
 # 图像路径
-img_path_r = "./img/train_image_set/4_r.png"
-img_path_s = "./img/train_image_set/4_s.png"
+img_path_r = "./img/train_image_set/23_r.png"
+img_path_s = "./img/train_image_set/23_s.png"
 
 # 以下提出的点集都是sensed points 1对多 reference points
 constants.IMG_RESIZE_RATIO = 1.5
@@ -55,5 +55,10 @@ result_negative = np.vstack((pre_matches1_negative, pre_matches2, matching_resul
 
 final_result = np.hstack((result, result_negative))
 
+filename = img_path_r.split("/")[len(img_path_r.split("/")) - 1] + "_" \
+           + img_path_s.split("/")[len(img_path_s.split("/")) - 1]
+np.savez('./label_result/' + filename, correspondence_label=final_result)
 print(len(final_result[0]))
+
+
 
