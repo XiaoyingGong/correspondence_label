@@ -5,7 +5,7 @@
 # input(s)：
 # output(s)：
 from preprocessing import pre_matching
-from label.label import Label
+from label.label_show_points import Label
 from utils import constants
 from utils.utils import utils
 # 图：1-11和23

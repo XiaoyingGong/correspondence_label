@@ -73,6 +73,8 @@ class Label:
         plt.clf()
         plt.axis('off')
         plt.imshow(self.h_img)
+        plt.scatter(np.transpose(self.pre_matches1[0]), self.pre_matches1[1], c='#00FFFF', s=2)
+        plt.scatter(np.transpose(self.pre_matches2[0]) + self.img_width, self.pre_matches2[1],  c='#00FFFF', s=2)
         plt.scatter(point1[0], point1[1], c='red', s=2)
         plt.scatter(point2[0]+self.img_width, point2[1], c='red', s=2)
         color = 'yellow'
