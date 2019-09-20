@@ -19,8 +19,8 @@ def get_partial_points(pre_matches):
     return pre_matches[index], index
 
 
-img_1_path = "./img/1_r.png"
-img_2_path = "./img/1_s.png"
+img_1_path = "./img/train_image_set/1_r.png"
+img_2_path = "./img/train_image_set/1_s.png"
 
 img_1 = cv2.imread(img_1_path)
 img_2 = cv2.imread(img_2_path)
@@ -29,7 +29,7 @@ img1 = cv2.resize(img_1, (800, 600))
 img2 = cv2.resize(img_2, (800, 600))
 h_img = np.hstack((img1, img2))
 #sift的阈值, 推荐设置高一点以增加负样
-sift_threshold = constants.SIFT_THRESHOLD
+sift_threshold = 1.0
 # 通过sift进行预匹配
 pre_matches1, pre_matches2, des1, des2, good_match = sift_matching.get_matches(img1, img2, sift_threshold)
 
@@ -50,7 +50,7 @@ pre_matches2_partial = np.transpose(pre_matches2_partial)
 # label.start_label()
 
 # 以下为测试2 读取保存的文件来进行标注
-label = Label(img_1_path, img_2_path, img1, img2, pre_matches1_partial, pre_matches2_partial, './label_result/1_r.png_1_s.png_1.0.npz')
+label = Label(img_1_path, img_2_path, img1, img2, pre_matches1_partial, pre_matches2_partial, './ground_truth/1_r.png_1_s.png_1.0.npz')
 label.start_label()
 
 

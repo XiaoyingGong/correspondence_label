@@ -22,6 +22,8 @@ b:返回上一 步
       如果出现蓝线，且为正确匹配，则点击r，说明该匹配是正确的
       如果出现黄线，且为正确匹配，则点击r，说明该匹配是正确的
       综上，错误的匹配都点击f，正确的匹配都点击r
+      //////////////////////////////////////////////////////////////////////////
+      addition：为了保证label的尽可能正确，增加了拿不准的选项，即is_rightmatch = 2
 '''
 
 
@@ -35,7 +37,7 @@ class Label:
         self.h_img = np.hstack((self.img1, self.img2))
         self.pre_matches1 = pre_matches1
         self.pre_matches2 = pre_matches2
-        # 用于记录是否这个对应关系是真的匹配 0代表不是，1代表是,初始时都默认为1
+        # 用于记录是否这个对应关系是真的匹配 0代表不是，1代表是,初始时都默认为-1
         self.is_right_match = np.ones(len(pre_matches1[0]))
         self.is_right_match[:] = -1
         self.fig = None
@@ -62,6 +64,8 @@ class Label:
             self.right_match()
         if event.key == 'f':
             self.false_match()
+        if event.key == 'p':
+            self.i_dont_know_match()
         if event.key == 'b':
             self.back()
         if event.key == 'q':
@@ -81,6 +85,8 @@ class Label:
         color = 'yellow'
         if is_inlier == 1 or is_inlier == -1:
             color = 'yellow'
+        elif is_inlier == 2:
+            color = 'red'
         else:
             color = 'blue'
         plt.plot([point1[0], point2[0]+self.img_width], [point1[1], point2[1]], linewidth=1, c=color)
@@ -111,6 +117,21 @@ class Label:
             self.print_index()
             self.set_is_right_match(self.index - 1, 0)
             self.draw_fig(self.pre_matches1[:, self.index], self.pre_matches2[:, self.index], self.is_right_match[self.index])
+
+
+    # 不知道什么匹配进行的操作，将is_right_match[self.index]设置为2
+    def i_dont_know_match(self):
+        flag = self.set_index(1)
+        if flag == 1: # 已经遍历完了
+            self.print_index()
+            self.set_is_right_match(self.index, 2)
+            self.draw_fig(self.pre_matches1[:, self.index], self.pre_matches2[:, self.index],
+                          self.is_right_match[self.index])
+        else:# 还没遍历完了
+            self.print_index()
+            self.set_is_right_match(self.index - 1, 2)
+            self.draw_fig(self.pre_matches1[:, self.index], self.pre_matches2[:, self.index], self.is_right_match[self.index])
+
 
     # 返回上一步
     def back(self):
@@ -146,7 +167,8 @@ class Label:
 
     # 打印出当前的序号
     def print_index(self):
+        i_dont_know_num = len(np.argwhere(self.is_right_match == 2))
         right_num = len(np.argwhere(self.is_right_match == 1))
         error_num = len(np.argwhere(self.is_right_match == 0))
-        print("正确匹配的数目：", right_num, " ", "错误匹配的数目:", error_num)
+        print("正确匹配的数目：", right_num, " ", "错误匹配的数目:", error_num, "不确定的匹配的数目：", i_dont_know_num)
         print(self.index + 1, ' / ',  len(self.pre_matches1[0]))
