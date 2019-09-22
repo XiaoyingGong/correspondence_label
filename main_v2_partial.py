@@ -84,7 +84,7 @@ def potential_inlier_choose():
     label.start_label()
 
     # 以下为测试2 读取保存的文件来进行标注
-    # label = Label(img_path_s, img_path_r, img_s, img_r, pre_matches_s_strict, pre_matches_r_strict, './label_result/1_s.png_1_r.png_0.3.npz')
+    # label = Label(img_path_s, img_path_r, img_s, img_r, np.transpose(pre_matches2), np.transpose(pre_matches1), './label_result/1_s.jpg_1_r.jpg_1.0.npz')
     # label.start_label()
 
 # inlier_choose()
