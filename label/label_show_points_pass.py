@@ -78,8 +78,12 @@ class Label:
         plt.clf()
         plt.axis('off')
         plt.imshow(self.h_img)
-        plt.scatter(np.transpose(self.pre_matches1[0]), self.pre_matches1[1], c='#00FFFF', s=2)
-        plt.scatter(np.transpose(self.pre_matches2[0]) + self.img_width, self.pre_matches2[1],  c='#00FFFF', s=2)
+
+        # plt.scatter(np.transpose(self.pre_matches1[0]), self.pre_matches1[1], c='#00FFFF', s=2)
+        # plt.scatter(np.transpose(self.pre_matches2[0]) + self.img_width, self.pre_matches2[1],  c='#00FFFF', s=2)
+        plt.scatter(np.transpose(self.pre_matches1[0]), self.pre_matches1[1], c='red', s=2)
+        plt.scatter(np.transpose(self.pre_matches2[0]) + self.img_width, self.pre_matches2[1], c='red', s=2)
+
         plt.scatter(point1[0], point1[1], c='red', s=2)
         plt.scatter(point2[0]+self.img_width, point2[1], c='red', s=2)
         color = 'yellow'
@@ -96,48 +100,45 @@ class Label:
     def right_match(self):
         flag = self.set_index(1)
         if flag == 1: # 已经遍历完了
-            self.print_index()
             self.set_is_right_match(self.index, 1)
             self.draw_fig(self.pre_matches1[:, self.index], self.pre_matches2[:, self.index],
                           self.is_right_match[self.index])
+
         else:# 还没遍历完了
-            self.print_index()
             self.set_is_right_match(self.index - 1, 1)
             self.draw_fig(self.pre_matches1[:, self.index], self.pre_matches2[:, self.index], self.is_right_match[self.index])
+        self.print_index()
 
     # 错误的匹配进行的操作，将is_right_match[self.index]设置为0
     def false_match(self):
         flag = self.set_index(1)
         if flag == 1: # 已经遍历完了
-            self.print_index()
             self.set_is_right_match(self.index, 0)
             self.draw_fig(self.pre_matches1[:, self.index], self.pre_matches2[:, self.index],
                           self.is_right_match[self.index])
         else:# 还没遍历完了
-            self.print_index()
             self.set_is_right_match(self.index - 1, 0)
             self.draw_fig(self.pre_matches1[:, self.index], self.pre_matches2[:, self.index], self.is_right_match[self.index])
+        self.print_index()
 
 
     # 不知道什么匹配进行的操作，将is_right_match[self.index]设置为2
     def i_dont_know_match(self):
         flag = self.set_index(1)
         if flag == 1: # 已经遍历完了
-            self.print_index()
             self.set_is_right_match(self.index, 2)
             self.draw_fig(self.pre_matches1[:, self.index], self.pre_matches2[:, self.index],
                           self.is_right_match[self.index])
         else:# 还没遍历完了
-            self.print_index()
             self.set_is_right_match(self.index - 1, 2)
             self.draw_fig(self.pre_matches1[:, self.index], self.pre_matches2[:, self.index], self.is_right_match[self.index])
-
+        self.print_index()
 
     # 返回上一步
     def back(self):
         flag = self.set_index(-1)
-        self.print_index()
         self.draw_fig(self.pre_matches1[:, self.index], self.pre_matches2[:, self.index], self.is_right_match[self.index])
+        self.print_index()
 
     # 保存当前结果，并退出
     def save_and_quit(self):
@@ -170,5 +171,5 @@ class Label:
         i_dont_know_num = len(np.argwhere(self.is_right_match == 2))
         right_num = len(np.argwhere(self.is_right_match == 1))
         error_num = len(np.argwhere(self.is_right_match == 0))
-        print("正确匹配的数目：", right_num, " ", "错误匹配的数目:", error_num, "不确定的匹配的数目：", i_dont_know_num)
-        print(self.index + 1, ' / ',  len(self.pre_matches1[0]))
+        print("已标注", self.index, "个点,正确匹配的数目：", right_num, " ", "错误匹配的数目:", error_num, "不确定的匹配的数目：", i_dont_know_num)
+        print("当前序号：", self.index + 1, ' / ',  len(self.pre_matches1[0]))

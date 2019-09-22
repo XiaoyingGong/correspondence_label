@@ -11,8 +11,8 @@ from utils.utils import utils
 # 图：1-11和23
 import numpy as np
 # 图像路径
-img_path_r = "./img/train_set_9_20/1_r.jpg"
-img_path_s = "./img/train_set_9_20/1_s.jpg"
+img_path_r = "./img/train_set_9_20/13_r.png"
+img_path_s = "./img/train_set_9_20/13_s.png"
 
 # 这个类用于部分的标记 即一张图提了点 只标记300个点
 def get_partial_points(pre_matches):
