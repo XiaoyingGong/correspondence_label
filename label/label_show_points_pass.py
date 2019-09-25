@@ -28,7 +28,7 @@ b:返回上一 步
 
 
 class Label:
-    def __init__(self, img_path1, img_path2, img1, img2, pre_matches1, pre_matches2, load_path=None):
+    def __init__(self, img_path1, img_path2, img1, img2, pre_matches1, pre_matches2, des_1, des_2, load_path=None):
         self.img1 = img1
         self.img2 = img2
         self.img_path1 = img_path1
@@ -37,6 +37,8 @@ class Label:
         self.h_img = np.hstack((self.img1, self.img2))
         self.pre_matches1 = pre_matches1
         self.pre_matches2 = pre_matches2
+        self.des_1 = des_1
+        self.des_2 = des_2
         # 用于记录是否这个对应关系是真的匹配 0代表不是，1代表是,初始时都默认为-1
         self.is_right_match = np.ones(len(pre_matches1[0]))
         self.is_right_match[:] = -1
@@ -159,10 +161,11 @@ class Label:
     def save_and_quit(self):
         #拼接结果
         result = np.vstack((self.pre_matches1, self.pre_matches2, self.is_right_match))
+        des_result = np.vstack((self.des_1, self.des_2))
         #存储结果，并保存遍历到的图像的图像特征点的序号，便于中间暂停后下次操作
         filename = self.img_path1.split("/")[len(self.img_path1.split("/")) - 1] + "_" \
             + self.img_path2.split("/")[len(self.img_path2.split("/")) - 1] + "_" + str(constants.SIFT_THRESHOLD)
-        np.savez('./label_result/'+filename, correspondence_label=result, index=self.index)
+        np.savez('./label_result/'+filename, correspondence_label=result, des = des_result, index=self.index)
         plt.close()
 
     # 对is_right_match的操作

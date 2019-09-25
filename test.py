@@ -1,5 +1,7 @@
 import numpy as np
 
-c = np.load("./label_result/1_s.jpg_1_r.jpg_1.0.npz")
-a = c["correspondence_label"]
-print(a[:, :10])
+a = np.load("./label_result/5_r.jpg_5_l.jpg_1.0.npz")
+b = a["correspondence_label"]
+c = a["des"]
+print(len(b[0]))
+print(c)
