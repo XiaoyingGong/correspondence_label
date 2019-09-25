@@ -74,6 +74,7 @@ class Label:
 
     # 定义绘制事件,每次绘制前都要清空
     # 最后一个参数即两个点是否是正确的匹配，如果是则为1，不是则为0
+    # 传入index为的是前5个  后5个点的index
     def draw_fig(self, point1, point2, is_inlier):
         plt.clf()
         plt.axis('off')
@@ -81,8 +82,22 @@ class Label:
 
         # plt.scatter(np.transpose(self.pre_matches1[0]), self.pre_matches1[1], c='#00FFFF', s=2)
         # plt.scatter(np.transpose(self.pre_matches2[0]) + self.img_width, self.pre_matches2[1],  c='#00FFFF', s=2)
+        if self.index - 5 < 0:
+            draw_start_index = 0
+        else:
+            draw_start_index = self.index - 5
+
+        if self.index + 5 >= len(self.pre_matches1[0]):
+            draw_end_index = len(self.pre_matches1[0]) -1
+        else:
+            draw_end_index = self.index + 5
+
+        print(self.index)
+
         plt.scatter(np.transpose(self.pre_matches1[0]), self.pre_matches1[1], c='red', s=2)
         plt.scatter(np.transpose(self.pre_matches2[0]) + self.img_width, self.pre_matches2[1], c='red', s=2)
+        # plt.scatter(np.transpose(self.pre_matches1[0, draw_start_index:draw_end_index]), self.pre_matches1[1, draw_start_index:draw_end_index], c='red', s=2)
+        # plt.scatter(np.transpose(self.pre_matches2[0, draw_start_index:draw_end_index]) + self.img_width, self.pre_matches2[1, draw_start_index:draw_end_index], c='red', s=2)
 
         plt.scatter(point1[0], point1[1], c='red', s=2)
         plt.scatter(point2[0]+self.img_width, point2[1], c='red', s=2)

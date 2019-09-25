@@ -24,8 +24,8 @@ def img_resize(img_r, img_s):
 
 def img_resize_fixed(img_1, img_2):
     shape = img_1.shape
-    resize_h = 600
-    resize_w = 800
+    resize_h = 300
+    resize_w = 400
     img_1 = cv2.resize(img_1, (resize_w, resize_h))
     img_2 = cv2.resize(img_2, (resize_w, resize_h))
     return img_1, img_2, resize_h, resize_w
@@ -55,7 +55,6 @@ def get_pre_matches(img_path_1, img_path_2, is_unique=None):
         sift_matching.get_matches(img_1, img_2, constants.SIFT_THRESHOLD)
     # 是否强行变成一一对应
     if is_unique:
-        print("OK!")
         pre_matches_1, pre_matches_2 = become_one_to_one(pre_matches_1, pre_matches_2)
     return pre_matches_1, pre_matches_2, des_1, des_2, img_1, img_2, resize_h, resize_w
 
