@@ -18,7 +18,6 @@ constants.SIFT_THRESHOLD = 1.0
 pre_matches_s_loose, pre_matches_r_loose, des_s_loose, des_r_loose, img_s, img_r, resize_h, resize_w = \
     pre_matching.get_pre_matches(img_path_s, img_path_r, False)
 
-print(np.vstack((des_s_loose, des_r_loose)))
 
 pre_matches1 = pre_matches_r_loose
 pre_matches2 = pre_matches_s_loose

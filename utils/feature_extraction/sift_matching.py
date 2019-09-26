@@ -5,6 +5,21 @@
 import cv2
 import numpy as np
 
+
+def get_matches_form_dataset(kp1, kp2, des1, des2, sift_threshold):
+    """
+    :param kp1:
+    :param kp2:
+    :param des1:
+    :param des2:
+    :param sift_threshold:
+    :return:
+    """
+    good_match = get_good_match(des1, des2, sift_threshold)
+    matching_points_1, matching_points_2, des_1, des_2, _ = get_matching_points(kp1, kp2, des1, des2, good_match)
+    return matching_points_1, matching_points_2, des_1, des_2
+
+
 def get_matches(img1, img2, sift_threshold):
     kp1, des1 = sift_kp(img1)
     kp2, des2 = sift_kp(img2)
@@ -60,6 +75,16 @@ def sift_kp(image):
 # 做匹配
 def get_good_match(des1, des2, sift_threshold):
     bf = cv2.BFMatcher()
+
+    print("des1_shape:", des1.shape)
+    print("des1_type:", type(des1))
+    print("des1:", des1)
+
+    print("des2_shape:", des2.shape)
+    print("des2_type:", type(des2))
+    print("des2:", des2)
+
+    np.savez("./label_result/test_label", test_label_1 = des1, test_label_2 = des2)
     matches = bf.knnMatch(des1, des2, k=2)
     good = []
     for m, n in matches:

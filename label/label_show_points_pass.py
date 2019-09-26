@@ -94,8 +94,6 @@ class Label:
         else:
             draw_end_index = self.index + 5
 
-        print(self.index)
-
         plt.scatter(np.transpose(self.pre_matches1[0]), self.pre_matches1[1], c='red', s=2)
         plt.scatter(np.transpose(self.pre_matches2[0]) + self.img_width, self.pre_matches2[1], c='red', s=2)
         # plt.scatter(np.transpose(self.pre_matches1[0, draw_start_index:draw_end_index]), self.pre_matches1[1, draw_start_index:draw_end_index], c='red', s=2)
