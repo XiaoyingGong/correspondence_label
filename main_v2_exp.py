@@ -26,3 +26,8 @@ pre_matches2 = pre_matches_s_loose
 label = Label(img_path_s, img_path_r, img_s, img_r,
               np.transpose(pre_matches2), np.transpose(pre_matches1), des_s_loose, des_r_loose)
 label.start_label()
+
+# 以下为测试2 读取保存的文件来进行标注
+# label = Label(img_path_s, img_path_r, img_s, img_r, np.transpose(pre_matches2), np.transpose(pre_matches1), des_s_loose, des_r_loose, './label_result/5_r.jpg_5_l.jpg_1.0.npz')
+# label.start_label()
+

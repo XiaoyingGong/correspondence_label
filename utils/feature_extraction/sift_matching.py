@@ -75,16 +75,6 @@ def sift_kp(image):
 # 做匹配
 def get_good_match(des1, des2, sift_threshold):
     bf = cv2.BFMatcher()
-
-    print("des1_shape:", des1.shape)
-    print("des1_type:", type(des1))
-    print("des1:", des1)
-
-    print("des2_shape:", des2.shape)
-    print("des2_type:", type(des2))
-    print("des2:", des2)
-
-    np.savez("./label_result/test_label", test_label_1 = des1, test_label_2 = des2)
     matches = bf.knnMatch(des1, des2, k=2)
     good = []
     for m, n in matches:
