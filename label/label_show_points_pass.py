@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 from utils import constants
+from utils.knn.knn import K_NearestNeighbors
 '''
 input:大小相同的两幅图像的路径，以及预匹配后的点集
 output:人工标注的点集,其为5行，n列的矩阵,其中
@@ -28,7 +29,8 @@ b:返回上一 步
 
 
 class Label:
-    def __init__(self, img_path1, img_path2, img1, img2, pre_matches1, pre_matches2, des_1, des_2, load_path=None):
+    def __init__(self, img_path1, img_path2, img1, img2, pre_matches1, pre_matches2, des_1, des_2,
+                 load_path=None, is_all_points_show=True):
         self.img1 = img1
         self.img2 = img2
         self.img_path1 = img_path1
@@ -44,6 +46,9 @@ class Label:
         self.is_right_match[:] = -1
         self.fig = None
         self.index = 0
+        self.knn_1 = K_NearestNeighbors(self.pre_matches1.T)
+        self.knn_2 = K_NearestNeighbors(self.pre_matches2.T)
+        self.is_all_points_show = is_all_points_show
         # 如果不是None，即以读文件的方式读入，之前的结果
         if load_path is not None:
             self.index = np.load(load_path)['index']
@@ -84,20 +89,15 @@ class Label:
 
         # plt.scatter(np.transpose(self.pre_matches1[0]), self.pre_matches1[1], c='#00FFFF', s=2)
         # plt.scatter(np.transpose(self.pre_matches2[0]) + self.img_width, self.pre_matches2[1],  c='#00FFFF', s=2)
-        if self.index - 5 < 0:
-            draw_start_index = 0
-        else:
-            draw_start_index = self.index - 5
 
-        if self.index + 5 >= len(self.pre_matches1[0]):
-            draw_end_index = len(self.pre_matches1[0]) -1
-        else:
-            draw_end_index = self.index + 5
+        if self.is_all_points_show == True:
+            plt.scatter(np.transpose(self.pre_matches1[0]), self.pre_matches1[1], c='red', s=2)
+            plt.scatter(np.transpose(self.pre_matches2[0]) + self.img_width, self.pre_matches2[1], c='red', s=2)
+        neighbor_index_1, neighbor_index_2 = self.find_neighbors(self.pre_matches1.T[self.index],
+                                                                 self.pre_matches2.T[self.index])
 
-        plt.scatter(np.transpose(self.pre_matches1[0]), self.pre_matches1[1], c='red', s=2)
-        plt.scatter(np.transpose(self.pre_matches2[0]) + self.img_width, self.pre_matches2[1], c='red', s=2)
-        # plt.scatter(np.transpose(self.pre_matches1[0, draw_start_index:draw_end_index]), self.pre_matches1[1, draw_start_index:draw_end_index], c='red', s=2)
-        # plt.scatter(np.transpose(self.pre_matches2[0, draw_start_index:draw_end_index]) + self.img_width, self.pre_matches2[1, draw_start_index:draw_end_index], c='red', s=2)
+        plt.scatter(np.transpose(self.pre_matches1[0, neighbor_index_1]), self.pre_matches1[1, neighbor_index_1], c='#00FFFF', s=2)
+        plt.scatter(np.transpose(self.pre_matches2[0, neighbor_index_2]) + self.img_width, self.pre_matches2[1, neighbor_index_2], c='#00FFFF', s=2)
 
         plt.scatter(point1[0], point1[1], c='red', s=2)
         plt.scatter(point2[0]+self.img_width, point2[1], c='red', s=2)
@@ -189,3 +189,10 @@ class Label:
         error_num = len(np.argwhere(self.is_right_match == 0))
         print("已标注", self.index, "个点,正确匹配的数目：", right_num, " ", "错误匹配的数目:", error_num, "不确定的匹配的数目：", i_dont_know_num)
         print("当前序号：", self.index + 1, ' / ',  len(self.pre_matches1[0]))
+
+    def find_neighbors(self, center_point_1, center_point_2):
+        _, neighbor_index_1 = self.knn_1.get_k_neighbors_v1(center_point_1,12)
+        _, neighbor_index_2 = self.knn_2.get_k_neighbors_v1(center_point_2, 12)
+        return neighbor_index_1, neighbor_index_2
+
+
